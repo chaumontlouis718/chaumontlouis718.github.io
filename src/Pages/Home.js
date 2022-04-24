@@ -1,11 +1,10 @@
-import "react-pro-sidebar/dist/css/styles.css";
-import Sidebar from "../Components/Sidebar";
+import Page from "../Components/Page";
 
 function Home() {
     return (
-        <div className="page">
-            <Sidebar></Sidebar>
-        </div>
+        <Page>
+            <div>Just some shit</div>
+        </Page>
     );
 }
 

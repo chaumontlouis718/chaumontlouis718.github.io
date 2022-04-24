@@ -1,15 +1,10 @@
-import "react-pro-sidebar/dist/css/styles.css";
-import Sidebar from "../Components/Sidebar";
+import Page from "../Components/Page";
 
 function About() {
     return (
-        <div className="page">
-            <Sidebar></Sidebar>
-            <div className="page-content">
-                <h1 className="page-title">About</h1>
-                <div className="page-body">Hello</div>
-            </div>
-        </div>
+        <Page>
+            <div>Hello</div>
+        </Page>
     );
 }
 
