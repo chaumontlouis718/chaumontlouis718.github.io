@@ -4,13 +4,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import { Avatar, ListItem } from "@mui/material";
 import ListItemLink from "./ListItemLink";
+import ForestIcon from "@mui/icons-material/Forest";
 
 const Sidebar = () => {
     return (
         <Drawer
             variant="permanent"
             sx={{
-                "& .MuiDrawer-paper": { backgroundColor: "background.sidebar", width: "200px" },
+                "& .MuiDrawer-paper": { backgroundColor: "background.sidebar", width: "220px" },
             }}
             PaperProps={{ elevation: 5 }}
         >
@@ -25,6 +26,7 @@ const Sidebar = () => {
 
                 <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
                 <ListItemLink to="/about" primary="About me" icon={<InfoIcon />} />
+                <ListItemLink to="/tents_and_trees" primary="Tents and trees" icon={<ForestIcon />} />
             </List>
         </Drawer>
     );

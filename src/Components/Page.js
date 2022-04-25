@@ -5,7 +5,6 @@ const Page = (props) => {
     return (
         <Box sx={{ display: "flex" }}>
             <CssBaseline />
-            <Sidebar></Sidebar>
             <Box
                 component="main"
                 sx={{
@@ -15,7 +14,8 @@ const Page = (props) => {
                     overflow: "auto",
                 }}
             >
-                <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Sidebar></Sidebar>
+                <Container fixed sx={{ mt: 3, mb: 3, ml: "220px" }}>
                     {props.children}
                 </Container>
             </Box>

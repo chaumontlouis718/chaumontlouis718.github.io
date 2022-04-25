@@ -5,6 +5,7 @@ import Home from "./Pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./Pages/About";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import TentsAndTrees from "./Pages/TentsAndTrees";
 
 const theme = createTheme({
     palette: {
@@ -34,6 +35,7 @@ root.render(
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/tents_and_trees" element={<TentsAndTrees />} />
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
