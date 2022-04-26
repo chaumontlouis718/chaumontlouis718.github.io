@@ -15,9 +15,18 @@ const Page = (props) => {
                 }}
             >
                 <Sidebar></Sidebar>
-                <Container fixed sx={{ mt: 3, mb: 3, ml: "220px" }}>
+
+                <Box
+                    sx={{
+                        ml: "220px",
+                        mt: 3,
+                        mb: 3,
+                        pr: "50px",
+                        pl: "50px",
+                    }}
+                >
                     {props.children}
-                </Container>
+                </Box>
             </Box>
         </Box>
     );
