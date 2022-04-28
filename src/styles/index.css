@@ -58,6 +58,32 @@ html, body {
   padding-bottom: 12.5%;
 }
 
+.cellSize-8 {
+  position: relative;
+  text-align: center;
+  height: 0;
+  width: 11.11%;
+  padding-bottom: 11.11%;
+}
+
+.cellSize-9 {
+  position: relative;
+  text-align: center;
+  height: 0;
+  width: 10%;
+  padding-bottom: 10%;
+}
+
+.cellSize-10 {
+  position: relative;
+  text-align: center;
+  height: 0;
+  width: 9.091%;
+  padding-bottom: 9.091%;
+}
+
+
+
 .cellValue-0 {
   background-color: rgb(50, 50, 50);
 }

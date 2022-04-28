@@ -4,7 +4,7 @@ import Page from "../Components/Page";
 import GameBoard from "../Components/TentsAndTree/GameBoard";
 
 function TentsAndTrees() {
-    const [boardSize, setBoardSize] = useState(5);
+    const [boardSize, setBoardSize] = useState(10);
 
     function onChangeCommitted(event, newValue) {
         setBoardSize(newValue);
@@ -20,7 +20,7 @@ function TentsAndTrees() {
                 step={1}
                 marks
                 min={4}
-                max={7}
+                max={10}
                 color="secondary"
                 onChangeCommitted={onChangeCommitted}
             />

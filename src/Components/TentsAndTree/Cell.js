@@ -1,10 +1,18 @@
 import { useState } from "react";
 
 const Cell = (props) => {
-    const [value, setValue] = useState(props.value);
+    function handleClick() {
+        if (props.value !== 3) {
+            props.cellClicked();
+        }
+    }
 
     return (
-        <div className={"cell cellSize-" + props.boardSize + " cellValue-" + value} onClick={props.cellClicked}></div>
+        <div
+            key={"cellValue-" + props.value}
+            className={"cell cellSize-" + props.boardSize + " cellValue-" + props.value}
+            onClick={handleClick}
+        ></div>
     );
 };
 
