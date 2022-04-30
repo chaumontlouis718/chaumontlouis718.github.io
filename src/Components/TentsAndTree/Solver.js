@@ -1,3 +1,5 @@
+import { areArraysEqual } from "@mui/base";
+
 const Solver = (gridToSolve) => {
     var casesModifie = 0;
 
@@ -34,6 +36,9 @@ const Solver = (gridToSolve) => {
         });
     }
 
+    // Regarder les valeurs dans sommeColonnes et sommeLignes, et mettre des tentes dans toutes les cases noires d'une ligne/colonnes si le nbr est égal au nbr de cases noirs
+    //  :: Il y a 3 cases noirs et 0 tente sur une lignes, et le chiffres de la ligne est 3.
+    //  :: Il y a 2 cases noirs et 2 tente sur une colonne, et le chiffre de la colonnes est 4.
     function applyStrategieUn() {
         gridToSolve.sommeColonnes.forEach(function (indicateurColonne, indexSommeColonne) {
             if (indicateurColonne === 0) {
@@ -104,25 +109,37 @@ const Solver = (gridToSolve) => {
         });
     }
 
+    // Analyser le nombre de cases noires disponibles et leurs positions, afin de déterminer les cases ou il y a forcément une tente.
+    // On analyse chaque combinaisation possibles afin de trouver les cases qui reviennent dans chaque configuration
     function applyStrategieDeux() {
         gridToSolve.grid.forEach(function (ligne, indexLigne) {
             var caseDisponible = countCaseDisponibles(ligne);
             var positions = getFreeSquarePosition(ligne);
+            positions = positions.map(function (position) {
+                return { ligne: indexLigne, colonne: position };
+            });
             var indicateurNbrTenteLigne = gridToSolve.sommeLignes[indexLigne];
 
-            var results = generateCombinations(positions, indicateurNbrTenteLigne - caseDisponible.nbrTenteDejaPlaces);
-            results = results.filter(function (combinaisons) {
+            var combinaisons = generateCombinations(
+                positions,
+                indicateurNbrTenteLigne - caseDisponible.nbrTenteDejaPlaces
+            );
+
+            var combinaisonsFiltered = combinaisons.filter(function (positions) {
                 var flag = false;
-                combinaisons.forEach(function (position) {
-                    if (!(combinaisons.indexOf(position + 1) < 0 && combinaisons.indexOf(position - 1) < 0)) {
+                positions.forEach(function (position) {
+                    if (
+                        findInArray(positions, { ligne: position.ligne, colonne: position.colonne + 1 }) ||
+                        findInArray(positions, { ligne: position.ligne, colonne: position.colonne - 1 })
+                    ) {
                         flag = true;
                     }
                 });
                 return !flag;
             });
 
-            var temps = results[0];
-            results.forEach(function (combinaisons) {
+            var temps = combinaisonsFiltered[0];
+            combinaisonsFiltered.forEach(function (combinaisons) {
                 temps = temps.filter(function (element) {
                     return combinaisons.includes(element);
                 });
@@ -130,32 +147,67 @@ const Solver = (gridToSolve) => {
 
             if (typeof temps !== "undefined" && temps > 0) {
                 temps.forEach(function (element) {
-                    applyChangeToGrid(2, indexLigne, element);
+                    applyChangeToGrid(2, element.ligne, element.colonne);
                 });
+            } else {
+                //getAllFreeSquareAroundAnOtherOne
+                var allFreeSquarePossibilitiesTakenByAllCombinations = [];
+                combinaisonsFiltered.forEach(function (combinaisons) {
+                    var allFreeSquarePossibilitiesTakenByOneCombinations = [];
+                    combinaisons.forEach(function (caze) {
+                        allFreeSquarePossibilitiesTakenByOneCombinations =
+                            allFreeSquarePossibilitiesTakenByOneCombinations.concat(
+                                getAllFreeSquareAroundAnOtherOne(caze.ligne, caze.colonne)
+                            );
+                    });
+                    allFreeSquarePossibilitiesTakenByAllCombinations.push(
+                        multiDimensionalUnique(allFreeSquarePossibilitiesTakenByOneCombinations)
+                    );
+                });
+
+                var tempsFreeSquarePossibilities = allFreeSquarePossibilitiesTakenByAllCombinations[0];
+                allFreeSquarePossibilitiesTakenByAllCombinations.forEach(function (freeSquarePossibilities) {
+                    tempsFreeSquarePossibilities = tempsFreeSquarePossibilities.filter(function (element) {
+                        return findArrayInArray(freeSquarePossibilities, element);
+                    });
+                });
+
+                if (typeof tempsFreeSquarePossibilities !== "undefined" && tempsFreeSquarePossibilities.length > 0) {
+                    tempsFreeSquarePossibilities.forEach(function (element) {
+                        applyChangeToGrid(1, element[0], element[1]);
+                    });
+                }
             }
         });
 
         gridToSolve.gridInversed.forEach(function (colonne, indexColonne) {
             var caseDisponible = countCaseDisponibles(colonne);
             var positions = getFreeSquarePosition(colonne);
+            positions = positions.map(function (position) {
+                return { ligne: position, colonne: indexColonne };
+            });
             var indicateurNbrTenteColonne = gridToSolve.sommeColonnes[indexColonne];
 
-            var results = generateCombinations(
+            var combinaisons = generateCombinations(
                 positions,
                 indicateurNbrTenteColonne - caseDisponible.nbrTenteDejaPlaces
             );
-            results = results.filter(function (combinaisons) {
+
+            var combinaisonsFiltered = combinaisons.filter(function (positions) {
                 var flag = false;
-                combinaisons.forEach(function (position) {
-                    if (!(combinaisons.indexOf(position + 1) < 0 && combinaisons.indexOf(position - 1) < 0)) {
+                positions.forEach(function (position) {
+                    if (
+                        findInArray(positions, { ligne: position.ligne + 1, colonne: position.colonne }) ||
+                        findInArray(positions, { ligne: position.ligne - 1, colonne: position.colonne })
+                    ) {
                         flag = true;
                     }
                 });
                 return !flag;
             });
 
-            var temps = results[0];
-            results.forEach(function (combinaisons) {
+            var temps = combinaisonsFiltered[0];
+            combinaisonsFiltered.forEach(function (combinaisons) {
                 temps = temps.filter(function (element) {
                     return combinaisons.includes(element);
                 });
@@ -163,8 +215,36 @@ const Solver = (gridToSolve) => {
 
             if (typeof temps !== "undefined" && temps > 0) {
                 temps.forEach(function (element) {
-                    applyChangeToGrid(2, element, indexColonne);
+                    applyChangeToGrid(2, element.ligne, element.colonne);
                 });
+            } else {
+                //getAllFreeSquareAroundAnOtherOne
+                var allFreeSquarePossibilitiesTakenByAllCombinations = [];
+                combinaisonsFiltered.forEach(function (combinaisons) {
+                    var allFreeSquarePossibilitiesTakenByOneCombinations = [];
+                    combinaisons.forEach(function (caze) {
+                        allFreeSquarePossibilitiesTakenByOneCombinations =
+                            allFreeSquarePossibilitiesTakenByOneCombinations.concat(
+                                getAllFreeSquareAroundAnOtherOne(caze.ligne, caze.colonne)
+                            );
+                    });
+                    allFreeSquarePossibilitiesTakenByAllCombinations.push(
+                        multiDimensionalUnique(allFreeSquarePossibilitiesTakenByOneCombinations)
+                    );
+                });
+
+                var tempsFreeSquarePossibilities = allFreeSquarePossibilitiesTakenByAllCombinations[0];
+                allFreeSquarePossibilitiesTakenByAllCombinations.forEach(function (freeSquarePossibilities) {
+                    tempsFreeSquarePossibilities = tempsFreeSquarePossibilities.filter(function (element) {
+                        return findArrayInArray(freeSquarePossibilities, element);
+                    });
+                });
+
+                if (typeof tempsFreeSquarePossibilities !== "undefined" && tempsFreeSquarePossibilities.length > 0) {
+                    tempsFreeSquarePossibilities.forEach(function (element) {
+                        applyChangeToGrid(1, element[0], element[1]);
+                    });
+                }
             }
         });
     }
@@ -295,14 +375,112 @@ const Solver = (gridToSolve) => {
         return returnArray;
     }
 
+    function getAllFreeSquareAroundAnOtherOne(indexLigne, indexColonne) {
+        var returnArray = [];
+
+        if (
+            gridToSolve.grid[indexLigne - 1] !== undefined &&
+            gridToSolve.grid[indexLigne - 1][indexColonne - 1] !== undefined &&
+            gridToSolve.grid[indexLigne - 1][indexColonne - 1] === 0
+        ) {
+            returnArray.push([indexLigne - 1, indexColonne - 1]);
+        }
+
+        if (
+            gridToSolve.grid[indexLigne - 1] !== undefined &&
+            gridToSolve.grid[indexLigne - 1][indexColonne] !== undefined &&
+            gridToSolve.grid[indexLigne - 1][indexColonne] === 0
+        ) {
+            returnArray.push([indexLigne - 1, indexColonne]);
+        }
+
+        if (
+            gridToSolve.grid[indexLigne - 1] !== undefined &&
+            gridToSolve.grid[indexLigne - 1][indexColonne + 1] !== undefined &&
+            gridToSolve.grid[indexLigne - 1][indexColonne + 1] === 0
+        ) {
+            returnArray.push([indexLigne - 1, indexColonne + 1]);
+        }
+
+        if (
+            gridToSolve.grid[indexLigne] !== undefined &&
+            gridToSolve.grid[indexLigne][indexColonne - 1] !== undefined &&
+            gridToSolve.grid[indexLigne][indexColonne - 1] === 0
+        ) {
+            returnArray.push([indexLigne, indexColonne - 1]);
+        }
+
+        if (
+            gridToSolve.grid[indexLigne] !== undefined &&
+            gridToSolve.grid[indexLigne][indexColonne + 1] !== undefined &&
+            gridToSolve.grid[indexLigne][indexColonne + 1] === 0
+        ) {
+            returnArray.push([indexLigne, indexColonne + 1]);
+        }
+
+        if (
+            gridToSolve.grid[indexLigne + 1] !== undefined &&
+            gridToSolve.grid[indexLigne + 1][indexColonne - 1] !== undefined &&
+            gridToSolve.grid[indexLigne + 1][indexColonne - 1] === 0
+        ) {
+            returnArray.push([indexLigne + 1, indexColonne - 1]);
+        }
+
+        if (
+            gridToSolve.grid[indexLigne + 1] !== undefined &&
+            gridToSolve.grid[indexLigne + 1][indexColonne] !== undefined &&
+            gridToSolve.grid[indexLigne + 1][indexColonne] === 0
+        ) {
+            returnArray.push([indexLigne + 1, indexColonne]);
+        }
+
+        if (
+            gridToSolve.grid[indexLigne + 1] !== undefined &&
+            gridToSolve.grid[indexLigne + 1][indexColonne + 1] !== undefined &&
+            gridToSolve.grid[indexLigne + 1][indexColonne + 1] === 0
+        ) {
+            returnArray.push([indexLigne + 1, indexColonne + 1]);
+        }
+
+        return returnArray;
+    }
+
+    // Remove duplicate entry from array
+    function multiDimensionalUnique(arr) {
+        var uniques = [];
+        var itemsFound = {};
+        for (var i = 0, l = arr.length; i < l; i++) {
+            var stringified = JSON.stringify(arr[i]);
+            if (itemsFound[stringified]) {
+                continue;
+            }
+            uniques.push(arr[i]);
+            itemsFound[stringified] = true;
+        }
+        return uniques;
+    }
+
+    // Find if an object is present in array
+    function findInArray(array, object) {
+        return array.some((el) => el.ligne === object.ligne && el.colonne === object.colonne);
+    }
+
+    // Find if an object is present in array
+    function findArrayInArray(array, arrayToFind) {
+        return array.some(
+            (el) => el.length === arrayToFind.length && el.every((value, index) => value === arrayToFind[index])
+        );
+    }
+
     gridToSolve.gridInversed = transpose(gridToSolve.grid);
     applyStrategieZero();
     var tempBoucle = 0;
+
     do {
         tempBoucle++;
         applyStrategieUn();
         applyStrategieDeux();
-    } while (tempBoucle < 30);
+    } while (tempBoucle < 10);
     console.log(gridToSolve.grid);
     return gridToSolve.grid;
 };
