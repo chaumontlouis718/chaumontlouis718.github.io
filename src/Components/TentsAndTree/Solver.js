@@ -59,8 +59,10 @@ const Solver = (gridToSolve) => {
             } else {
                 var caseDisponible = countCaseDisponibles(gridToSolve.grid[indexSommeLigne]);
                 if (caseDisponible.nbrTenteDejaPlaces === indicateurLigne && caseDisponible.nbrBlackSquare !== 0) {
+                    console.log(indexSommeLigne);
                     replaceAllBlackSquareByGazonLigne(indexSommeLigne);
                 } else if (caseDisponible.nbrBlackSquare === indicateurLigne - caseDisponible.nbrTenteDejaPlaces) {
+                    console.log(indexSommeLigne);
                     replaceAllBlackSquareByTenteLigne(indexSommeLigne);
                 }
             }
@@ -91,7 +93,7 @@ const Solver = (gridToSolve) => {
     function replaceAllBlackSquareByTenteLigne(indexLigne) {
         gridToSolve.grid[indexLigne] = gridToSolve.grid[indexLigne].map(function (valeurCase, indexColonne) {
             if (valeurCase === 0) {
-                applyChangeToInversedGrid(2, indexLigne, indexColonne);
+                applyChangeToGrid(2, indexLigne, indexColonne);
                 return 2;
             } else return valeurCase;
         });
@@ -141,7 +143,7 @@ const Solver = (gridToSolve) => {
             var temps = combinaisonsFiltered[0];
             combinaisonsFiltered.forEach(function (combinaisons) {
                 temps = temps.filter(function (element) {
-                    return combinaisons.includes(element);
+                    return findInArray(combinaisons, element);
                 });
             });
 
@@ -150,7 +152,6 @@ const Solver = (gridToSolve) => {
                     applyChangeToGrid(2, element.ligne, element.colonne);
                 });
             } else {
-                //getAllFreeSquareAroundAnOtherOne
                 var allFreeSquarePossibilitiesTakenByAllCombinations = [];
                 combinaisonsFiltered.forEach(function (combinaisons) {
                     var allFreeSquarePossibilitiesTakenByOneCombinations = [];
@@ -209,7 +210,7 @@ const Solver = (gridToSolve) => {
             var temps = combinaisonsFiltered[0];
             combinaisonsFiltered.forEach(function (combinaisons) {
                 temps = temps.filter(function (element) {
-                    return combinaisons.includes(element);
+                    return findInArray(combinaisons, element);
                 });
             });
 
@@ -218,7 +219,6 @@ const Solver = (gridToSolve) => {
                     applyChangeToGrid(2, element.ligne, element.colonne);
                 });
             } else {
-                //getAllFreeSquareAroundAnOtherOne
                 var allFreeSquarePossibilitiesTakenByAllCombinations = [];
                 combinaisonsFiltered.forEach(function (combinaisons) {
                     var allFreeSquarePossibilitiesTakenByOneCombinations = [];
@@ -278,6 +278,10 @@ const Solver = (gridToSolve) => {
         makeNextCombos([], 0, comboLength);
         return combos;
     }
+
+    // Vérifier si un arbre qui n'as pas encore de tente n'a pas plus qu'une seul case disponible à côté de lui : c'est une tente
+    // Il faut chaîner si il a déjà une tente pour vérifier si c'est bien sa tente ou pas.
+    function applyStrategieTrois() {}
 
     function countCaseDisponibles(arr) {
         return arr.reduce(reducerCountCaseDisponibles, {
@@ -480,7 +484,8 @@ const Solver = (gridToSolve) => {
         tempBoucle++;
         applyStrategieUn();
         applyStrategieDeux();
-    } while (tempBoucle < 10);
+    } while (tempBoucle < 1);
+
     console.log(gridToSolve.grid);
     return gridToSolve.grid;
 };
