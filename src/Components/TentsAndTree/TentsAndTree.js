@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Cell = (props) => {
+const TentsAndTreeCell = (props) => {
     function handleClick() {
         if (props.value !== 3) {
             props.cellClicked();
@@ -12,4 +12,4 @@ const Cell = (props) => {
     );
 };
 
-export default Cell;
+export default TentsAndTreeCell;

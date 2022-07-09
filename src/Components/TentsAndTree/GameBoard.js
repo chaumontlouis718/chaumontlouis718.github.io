@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useReducer } from "react";
 import { useEffect } from "react";
 import Creator from "./Creator";
-import Row from "./Row";
+import TentsAndTreeRow from "./TentsAndTreeRow";
 import Solver from "./Solver";
 import TentNumberIndicator from "./TentNumberIndicator";
 
@@ -90,13 +90,13 @@ const GameBoard = (props) => {
         for (var j = 0; j < props.boardSize; j++) {
             const rowIndex = j;
             rows.push(
-                <Row
+                <TentsAndTreeRow
                     boardSize={props.boardSize}
                     indicator={gridState.sumLine[j]}
                     rowState={gridState.grid[j]}
                     cellClicked={(column) => cellClicked(rowIndex, column)}
                     key={"row-" + j}
-                ></Row>
+                ></TentsAndTreeRow>
             );
         }
         return rows;

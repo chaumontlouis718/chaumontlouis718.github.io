@@ -5,6 +5,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { Avatar, ListItem } from "@mui/material";
 import ListItemLink from "./ListItemLink";
 import ForestIcon from "@mui/icons-material/Forest";
+import DialpadIcon from "@mui/icons-material/Dialpad";
 
 const Sidebar = () => {
     return (
@@ -27,6 +28,7 @@ const Sidebar = () => {
                 <ListItemLink to="/" primary="Home" icon={<HomeIcon />} />
                 <ListItemLink to="/about" primary="About me" icon={<InfoIcon />} />
                 <ListItemLink to="/tents_and_trees" primary="Tents and trees" icon={<ForestIcon />} />
+                <ListItemLink to="/game_of_life" primary="Game of life" icon={<DialpadIcon />} />
             </List>
         </Drawer>
     );

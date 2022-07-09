@@ -1,7 +1,7 @@
-import Cell from "./Cell";
+import TentsAndTreeCell from "./TentsAndTree";
 import TentNumberIndicator from "./TentNumberIndicator";
 
-const Row = (props) => {
+const TentsAndTreeRow = (props) => {
     const cells = [];
     cells.push(
         <TentNumberIndicator key={-1} boardSize={props.boardSize} value={props.indicator}></TentNumberIndicator>
@@ -9,16 +9,16 @@ const Row = (props) => {
     for (var i = 0; i < props.boardSize; i++) {
         const columnIndex = i;
         cells.push(
-            <Cell
+            <TentsAndTreeCell
                 boardSize={props.boardSize}
                 value={props.rowState !== undefined && props.rowState.length >= i ? props.rowState[i] : 0}
                 cellClicked={() => props.cellClicked(columnIndex)}
                 key={columnIndex}
-            ></Cell>
+            ></TentsAndTreeCell>
         );
     }
 
     return <div className="row">{cells}</div>;
 };
 
-export default Row;
+export default TentsAndTreeRow;

@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./Pages/About";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TentsAndTrees from "./Pages/TentsAndTrees";
+import GameOfLife from "./Pages/GameOfLife";
 
 const theme = createTheme({
     palette: {
@@ -36,9 +37,9 @@ root.render(
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/tents_and_trees" element={<TentsAndTrees />} />
+                    <Route path="/game_of_life" element={<GameOfLife />} />
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>
     </React.StrictMode>
 );
-
