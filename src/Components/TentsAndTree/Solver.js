@@ -59,10 +59,8 @@ const Solver = (gridToSolve) => {
             } else {
                 var caseDisponible = countCaseDisponibles(gridToSolve.grid[indexSommeLigne]);
                 if (caseDisponible.nbrTenteDejaPlaces === indicateurLigne && caseDisponible.nbrBlackSquare !== 0) {
-                    console.log(indexSommeLigne);
                     replaceAllBlackSquareByGazonLigne(indexSommeLigne);
                 } else if (caseDisponible.nbrBlackSquare === indicateurLigne - caseDisponible.nbrTenteDejaPlaces) {
-                    console.log(indexSommeLigne);
                     replaceAllBlackSquareByTenteLigne(indexSommeLigne);
                 }
             }
@@ -486,7 +484,6 @@ const Solver = (gridToSolve) => {
         applyStrategieDeux();
     } while (tempBoucle < 1);
 
-    console.log(gridToSolve.grid);
     return gridToSolve.grid;
 };
 

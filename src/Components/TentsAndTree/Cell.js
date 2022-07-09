@@ -8,11 +8,7 @@ const Cell = (props) => {
     }
 
     return (
-        <div
-            key={"cellValue-" + props.value}
-            className={"cell cellSize-" + props.boardSize + " cellValue-" + props.value}
-            onClick={handleClick}
-        ></div>
+        <div className={"cell cellSize-" + props.boardSize + " cellValue-" + props.value} onClick={handleClick}></div>
     );
 };
 
