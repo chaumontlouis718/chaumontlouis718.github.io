@@ -1,7 +1,5 @@
-import { areArraysEqual } from "@mui/base";
-
 const Solver = (gridToSolve) => {
-    var casesModifie = 0;
+    console.log(gridToSolve);
 
     // Une tente est forcément à côté d'un arbre
     // Donc il n'y a pas de tente sur les cases isolées, c'est à dire sans aucun arbre à côté, donc c'est forcément du gazon.
@@ -257,7 +255,7 @@ const Solver = (gridToSolve) => {
         // and the number of elements required to be added to create a full-length combination.
         // Called recursively to build combinations, adding subsequent elements at each call depth.
         const makeNextCombos = (workingCombo, currentIndex, remainingCount) => {
-            const oneAwayFromComboLength = remainingCount == 1;
+            const oneAwayFromComboLength = remainingCount === 1;
 
             // For each element that remaines to be added to the working combination.
             for (let sourceIndex = currentIndex; sourceIndex < sourceLength; sourceIndex++) {
@@ -299,9 +297,8 @@ const Solver = (gridToSolve) => {
 
     function applyChangeToGrid(value, indexLigne, indexColonne) {
         gridToSolve.grid[indexLigne][indexColonne] = value;
-        casesModifie++;
         applyChangeToInversedGrid(value, indexLigne, indexColonne);
-        if (value == 2) {
+        if (value === 2) {
             gazonAutourTente(indexLigne, indexColonne);
         }
     }

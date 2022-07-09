@@ -11,7 +11,7 @@ const Row = (props) => {
         cells.push(
             <Cell
                 boardSize={props.boardSize}
-                value={props.rowState[i]}
+                value={props.rowState !== undefined && props.rowState.length >= i ? props.rowState[i] : 0}
                 cellClicked={() => props.cellClicked(columnIndex)}
                 key={columnIndex}
             ></Cell>

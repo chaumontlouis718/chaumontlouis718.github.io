@@ -7,23 +7,9 @@ import Solver from "./Solver";
 import TentNumberIndicator from "./TentNumberIndicator";
 
 const GameBoard = (props) => {
-    function reducer(state, action) {
-        switch (action.type) {
-            case "update-all":
-                return {
-                    sumColumn: action.sumColumn,
-                    sumLine: action.sumLine,
-                    grid: action.grid,
-                };
-            case "update-grid":
-                return {
-                    ...state,
-                    grid: action.grid,
-                };
-            default:
-                throw new Error();
-        }
-    }
+    useEffect(() => {
+        createNewGrid(props.boardSize);
+    }, [props.boardSize]);
 
     const [gridState, dispatch] = useReducer(reducer, {
         sumColumn: [3, 1, 3, 2, 1, 3, 2, 2, 1, 3],
@@ -41,6 +27,24 @@ const GameBoard = (props) => {
             [0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
         ],
     });
+
+    function reducer(state, action) {
+        switch (action.type) {
+            case "update-all":
+                return {
+                    sumColumn: action.sumColumn,
+                    sumLine: action.sumLine,
+                    grid: action.grid,
+                };
+            case "update-grid":
+                return {
+                    ...state,
+                    grid: action.grid,
+                };
+            default:
+                throw new Error();
+        }
+    }
 
     function fetchSolved() {
         dispatch({
