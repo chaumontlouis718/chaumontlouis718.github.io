@@ -63,7 +63,7 @@ const Creator = (size) => {
 
     return {
         sumColumn: sumColumn,
-        sumLigne: sumLigne,
+        sumLine: sumLigne,
         grid: grid,
     };
 

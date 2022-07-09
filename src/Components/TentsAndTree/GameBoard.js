@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { useReducer } from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Creator from "./Creator";
 import Row from "./Row";
 import Solver from "./Solver";
@@ -9,24 +9,10 @@ import TentNumberIndicator from "./TentNumberIndicator";
 const GameBoard = (props) => {
     useEffect(() => {
         createNewGrid(props.boardSize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.boardSize]);
 
-    const [gridState, dispatch] = useReducer(reducer, {
-        sumColumn: [3, 1, 3, 2, 1, 3, 2, 2, 1, 3],
-        sumLine: [4, 0, 4, 1, 1, 4, 0, 2, 2, 3],
-        grid: [
-            [0, 0, 0, 0, 3, 0, 3, 0, 3, 0],
-            [3, 3, 0, 0, 0, 0, 0, 0, 3, 0],
-            [0, 3, 0, 0, 0, 3, 0, 0, 0, 0],
-            [0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 3, 0, 0, 3, 0, 3],
-            [0, 3, 0, 0, 3, 0, 0, 0, 0, 0],
-            [0, 0, 0, 3, 0, 0, 0, 0, 0, 0],
-            [3, 0, 0, 0, 0, 3, 0, 0, 0, 0],
-            [0, 0, 3, 0, 0, 0, 0, 3, 3, 0],
-            [0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-        ],
-    });
+    const [gridState, dispatch] = useReducer(reducer, Creator(props.boardSize));
 
     function reducer(state, action) {
         switch (action.type) {
@@ -62,7 +48,7 @@ const GameBoard = (props) => {
         dispatch({
             type: "update-all",
             sumColumn: grid.sumColumn,
-            sumLine: grid.sumLigne,
+            sumLine: grid.sumLine,
             grid: grid.grid,
         });
     }
