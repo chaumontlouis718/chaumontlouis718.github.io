@@ -1,4 +1,4 @@
-const Creator = (size) => {
+const TentsAndTreeCreator = (size) => {
     var grid = initMatrix();
 
     const numberOfTentTarget = (size * size) / 6;
@@ -123,4 +123,4 @@ const Creator = (size) => {
 // Définir le nombre de tentes à poser de base sur une grille en fonction de la taille de cell-ci : size²/6? ou fixe si la flemme
 // Jusque ce que toutes les tentes soit posées, ou qu'on arrive plus à en poser, on essaye de trouver des emplacements pour un couple tente/arbre dans la grille.
 
-export default Creator;
+export default TentsAndTreeCreator;

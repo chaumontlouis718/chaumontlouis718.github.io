@@ -1,7 +1,7 @@
 import { Button, Slider } from "@mui/material";
 import { useState } from "react";
 import Page from "../Components/Page";
-import GameBoard from "../Components/TentsAndTree/GameBoard";
+import TentsAndTreeGameBoard from "../Components/TentsAndTree/TentsAndTreeGameBoard";
 
 function TentsAndTrees() {
     const [boardSize, setBoardSize] = useState(10);
@@ -25,7 +25,7 @@ function TentsAndTrees() {
                 onChangeCommitted={onChangeCommitted}
             />
 
-            <GameBoard boardSize={boardSize}></GameBoard>
+            <TentsAndTreeGameBoard boardSize={boardSize}></TentsAndTreeGameBoard>
         </Page>
     );
 }

@@ -1,18 +1,18 @@
 import { Button } from "@mui/material";
 import { useReducer } from "react";
 import { useEffect } from "react";
-import Creator from "./Creator";
+import TentsAndTreeCreator from "./TentsAndTreeCreator";
 import TentsAndTreeRow from "./TentsAndTreeRow";
-import Solver from "./Solver";
+import TentsAndTreeSolver from "./TentsAndTreeSolver";
 import TentNumberIndicator from "./TentNumberIndicator";
 
-const GameBoard = (props) => {
+const TentsAndTreeGameBoard = (props) => {
     useEffect(() => {
         createNewGrid(props.boardSize);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.boardSize]);
 
-    const [gridState, dispatch] = useReducer(reducer, Creator(props.boardSize));
+    const [gridState, dispatch] = useReducer(reducer, TentsAndTreeCreator(props.boardSize));
 
     function reducer(state, action) {
         switch (action.type) {
@@ -35,7 +35,7 @@ const GameBoard = (props) => {
     function fetchSolved() {
         dispatch({
             type: "update-grid",
-            grid: Solver({
+            grid: TentsAndTreeSolver({
                 sommeColonnes: gridState.sumColumn,
                 sommeLignes: gridState.sumLine,
                 grid: gridState.grid,
@@ -44,7 +44,7 @@ const GameBoard = (props) => {
     }
 
     function createNewGrid() {
-        const grid = Creator(props.boardSize);
+        const grid = TentsAndTreeCreator(props.boardSize);
         dispatch({
             type: "update-all",
             sumColumn: grid.sumColumn,
@@ -66,10 +66,7 @@ const GameBoard = (props) => {
     function getRows() {
         const firstLineIndicators = [];
         firstLineIndicators.push(
-            <div
-                key="tentNumberIndicator-first"
-                className={"cellSize-" + props.boardSize + " tentNumberIndicator"}
-            ></div>
+            <div key="tentNumberIndicator-first" className={"tents_and_tree_tent_number_indicator"}></div>
         );
         for (var i = 0; i < props.boardSize; i++) {
             firstLineIndicators.push(
@@ -83,7 +80,7 @@ const GameBoard = (props) => {
 
         const rows = [];
         rows.push(
-            <div key="row-first" className="row">
+            <div key="row-first" className="tents_and_tree_row">
                 {firstLineIndicators}
             </div>
         );
@@ -132,4 +129,4 @@ const GameBoard = (props) => {
     );
 };
 
-export default GameBoard;
+export default TentsAndTreeGameBoard;

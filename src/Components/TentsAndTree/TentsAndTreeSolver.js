@@ -1,6 +1,4 @@
-const Solver = (gridToSolve) => {
-    console.log(gridToSolve);
-
+const TentsAndTreeSolver = (gridToSolve) => {
     // Une tente est forcément à côté d'un arbre
     // Donc il n'y a pas de tente sur les cases isolées, c'est à dire sans aucun arbre à côté, donc c'est forcément du gazon.
     function applyStrategieZero() {
@@ -488,4 +486,4 @@ function transpose(matrix) {
     return matrix[0].map((col, i) => matrix.map((row) => row[i]));
 }
 
-export default Solver;
+export default TentsAndTreeSolver;

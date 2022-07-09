@@ -7,9 +7,7 @@ const TentsAndTreeCell = (props) => {
         }
     }
 
-    return (
-        <div className={"cell cellSize-" + props.boardSize + " cellValue-" + props.value} onClick={handleClick}></div>
-    );
+    return <div className={"tents_and_tree_cell tents_and_tree_cell_value-" + props.value} onClick={handleClick}></div>;
 };
 
 export default TentsAndTreeCell;

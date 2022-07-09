@@ -1,4 +1,4 @@
-import TentsAndTreeCell from "./TentsAndTree";
+import TentsAndTreeCell from "./TentsAndTreeCell";
 import TentNumberIndicator from "./TentNumberIndicator";
 
 const TentsAndTreeRow = (props) => {
@@ -18,7 +18,7 @@ const TentsAndTreeRow = (props) => {
         );
     }
 
-    return <div className="row">{cells}</div>;
+    return <div className="tents_and_tree_row">{cells}</div>;
 };
 
 export default TentsAndTreeRow;
