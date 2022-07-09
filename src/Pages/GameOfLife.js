@@ -1,9 +1,11 @@
+import GameOfLifeGameBoard from "../Components/GameOfLife/GameOfLifeGameBoard";
 import Page from "../Components/Page";
 
 function GameOfLife() {
     return (
         <Page>
-            <div>Hello</div>
+            <h1>Game of life</h1>
+            <GameOfLifeGameBoard tableSize={75} />
         </Page>
     );
 }

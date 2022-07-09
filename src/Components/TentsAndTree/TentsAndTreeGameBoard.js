@@ -100,8 +100,8 @@ const TentsAndTreeGameBoard = (props) => {
     }
 
     return (
-        <div className="game_wrapper">
-            <div className="game_board">{getRows()}</div>
+        <div>
+            <div>{getRows()}</div>
             <Button
                 color="primary"
                 variant="contained"

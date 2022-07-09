@@ -275,7 +275,7 @@ const TentsAndTreeSolver = (gridToSolve) => {
 
     // Vérifier si un arbre qui n'as pas encore de tente n'a pas plus qu'une seul case disponible à côté de lui : c'est une tente
     // Il faut chaîner si il a déjà une tente pour vérifier si c'est bien sa tente ou pas.
-    function applyStrategieTrois() {}
+    //function applyStrategieTrois() {}
 
     function countCaseDisponibles(arr) {
         return arr.reduce(reducerCountCaseDisponibles, {

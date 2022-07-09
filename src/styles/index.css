@@ -6,17 +6,7 @@ html, body {
   width: 100%;
 }
 
-.tents_and_tree_game_board {
-  display: flex;
-  flex-grow: 1;
-  flex-direction: column;
-  align-content: stretch;
-  align-items: center;
-  max-width: 1000px;
-  height: 100%;
-  width: 100%;
-}
-
+/* Tents and tree */
 .tents_and_tree_row {
   height: 100%;
   width: 100%;
@@ -65,4 +55,27 @@ html, body {
   top: 50%;
   transform: translate(-50%,-50%);
   font-size: 65px;
+}
+
+/* Game of life */
+.game_of_life_table {
+  border-collapse: collapse;
+}
+
+.game_of_life_row {
+  border: 1px solid black;
+}
+
+.game_of_life_cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+}
+
+.game_of_life_cell-0 {
+  background-color: rgb(50, 50, 50);
+}
+
+.game_of_life_cell-1 {
+  background-color: white;
 }
