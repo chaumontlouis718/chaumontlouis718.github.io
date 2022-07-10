@@ -98,8 +98,9 @@ const GameOfLifeGameBoard = (props) => {
                     });
                 return newGameState;
             });
-        }, 50);
+        }, 75);
         return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function getRows() {

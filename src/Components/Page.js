@@ -1,4 +1,4 @@
-import { Box, Container, CssBaseline } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import Sidebar from "./Sidebar";
 
 const Page = (props) => {

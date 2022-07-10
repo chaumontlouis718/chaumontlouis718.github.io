@@ -1,4 +1,4 @@
-import { Button, Slider } from "@mui/material";
+import { Slider } from "@mui/material";
 import { useState } from "react";
 import Page from "../Components/Page";
 import TentsAndTreeGameBoard from "../Components/TentsAndTree/TentsAndTreeGameBoard";

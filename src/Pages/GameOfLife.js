@@ -5,7 +5,7 @@ function GameOfLife() {
     return (
         <Page>
             <h1>Game of life</h1>
-            <GameOfLifeGameBoard tableSize={75} />
+            <GameOfLifeGameBoard tableSize={50} />
         </Page>
     );
 }
