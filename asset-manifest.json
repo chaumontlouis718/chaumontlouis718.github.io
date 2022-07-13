@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.da6cb7d7.css",
-    "main.js": "/static/js/main.b4853fd4.js",
-    "index.html": "/index.html",
-    "main.da6cb7d7.css.map": "/static/css/main.da6cb7d7.css.map",
-    "main.b4853fd4.js.map": "/static/js/main.b4853fd4.js.map"
+    "main.css": "/chaumontlouis718.github.io/static/css/main.da6cb7d7.css",
+    "main.js": "/chaumontlouis718.github.io/static/js/main.b4853fd4.js",
+    "index.html": "/chaumontlouis718.github.io/index.html",
+    "main.da6cb7d7.css.map": "/chaumontlouis718.github.io/static/css/main.da6cb7d7.css.map",
+    "main.b4853fd4.js.map": "/chaumontlouis718.github.io/static/js/main.b4853fd4.js.map"
   },
   "entrypoints": [
     "static/css/main.da6cb7d7.css",
